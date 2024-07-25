@@ -1,0 +1,29 @@
+{
+  "name": "kubernetes-agent-nfs-watchdog",
+  "private": true,
+  "version": "0.1.0",
+  "description": "A small utility for ensuring that pods with stale NFS mounts get terminated",
+  "scripts": {
+    "changeset": "changeset",
+    "ci:version": "run changeset version && install"
+  },
+  "devDependencies": {
+    "@changesets/cli": "^2.27.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/OctopusDeploy/kubernetes-agent-nfs-watchdog.git"
+  },
+  "keywords": [
+    "agent",
+    "kubernetes",
+    "watchdog",
+    "nfs",
+    "octopus"
+  ],
+  "author": "Octopus Deploy",
+  "bugs": {
+    "url": "https://github.com/OctopusDeploy/kubernetes-agent-nfs-watchdog/issues"
+  },
+  "homepage": "https://github.com/OctopusDeploy/kubernetes-agent-nfs-watchdog"
+}

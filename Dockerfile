@@ -1,9 +1,9 @@
 # syntax=docker/dockerfile:1
-FROM golang:1.22 as build-debug-base
+FROM golang:1.23 as build-debug-base
 
 RUN CGO_ENABLED=0 go install -ldflags "-s -w -extldflags '-static'" github.com/go-delve/delve/cmd/dlv@latest
 
-FROM golang:1.22 as build-debug
+FROM golang:1.23 as build-debug
 
 WORKDIR /build
 COPY go.mod go.sum ./
@@ -15,7 +15,7 @@ COPY . .
 # We need to have the symbols for debugging
 RUN CGO_ENABLED=0 go build -gcflags "all=-N -l" -o "/bin/nfs-watchdog"
 
-FROM golang:1.22 as build-prod
+FROM golang:1.23 as build-prod
 
 WORKDIR /build
 COPY go.mod go.sum ./

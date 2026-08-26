@@ -1,7 +1,11 @@
 # syntax=docker/dockerfile:1
 FROM golang:1.23 as build-debug-base
 
-RUN CGO_ENABLED=0 go install -ldflags "-s -w -extldflags '-static'" github.com/go-delve/delve/cmd/dlv@latest
+# Pinned rather than tracking the newest release: Delve v1.26.0+ requires Go 1.24
+# and this stage builds on golang:1.23, so an unpinned install silently broke the
+# debug image when Delve moved on. v1.25.2 is the newest release that still
+# builds on Go 1.23. Revisit when the base image moves.
+RUN CGO_ENABLED=0 go install -ldflags "-s -w -extldflags '-static'" github.com/go-delve/delve/cmd/dlv@v1.25.2
 
 FROM golang:1.23 as build-debug
 

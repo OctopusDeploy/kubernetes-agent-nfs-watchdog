@@ -1,6 +1,6 @@
 module github.com/OctopusDeploy/kubernetes-agent-nfs-watchdog
 
-go 1.23.0
+go 1.26.0
 
 require (
 	github.com/cenkalti/backoff/v4 v4.3.0

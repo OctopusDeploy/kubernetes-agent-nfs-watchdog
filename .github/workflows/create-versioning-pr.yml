@@ -12,33 +12,33 @@ jobs:
     # For all pushes that aren't creating a versioning commit
     if: ${{ !startsWith(github.event.commits[0].message, 'Version Kubernetes Agent NFS Watchdog') }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
       - name: setup-node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v7
         with:
           node-version: 20
 
       - name: Cache .pnpm-store
         # v3.2.3 is hard-failed by GitHub since the old cache service was retired.
-        uses: actions/cache@v4
+        uses: actions/cache@v6
         with:
           path: ~/.pnpm-store
           # There is no matrix in this job, so the previous key interpolated an
           # empty value here. Use the node version this job actually sets up.
           key: ${{ runner.os }}-node20-${{ hashFiles('**/pnpm-lock.yaml') }}
 
-      - uses: pnpm/action-setup@v4
+      - uses: pnpm/action-setup@v6
         with:
           version: 8.15.2
           run_install: true
 
       - name: Install YQ
-        uses: dcarbone/install-yq-action@v1.1.1
+        uses: dcarbone/install-yq-action@v1.3.1
 
       - name: Create Release Pull Request
         id: changesets
-        uses: changesets/action@v1
+        uses: changesets/action@v2
         with:
           commit: 'Version Kubernetes Agent NFS Watchdog'
           title: 'Version Kubernetes Agent NFS Watchdog'

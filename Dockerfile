@@ -1,12 +1,12 @@
 # syntax=docker/dockerfile:1
-FROM golang:1.26 as build-debug-base
+FROM golang:1.27 as build-debug-base
 
 # Pinned rather than tracking the newest release: an unpinned install broke the
 # debug image when Delve started requiring a newer Go than the base image had.
 # v1.27.1 needs Go >= 1.25, which golang:1.26 satisfies.
 RUN CGO_ENABLED=0 go install -ldflags "-s -w -extldflags '-static'" github.com/go-delve/delve/cmd/dlv@v1.27.1
 
-FROM golang:1.26 as build-debug
+FROM golang:1.27 as build-debug
 
 WORKDIR /build
 COPY go.mod go.sum ./
@@ -18,7 +18,7 @@ COPY . .
 # We need to have the symbols for debugging
 RUN CGO_ENABLED=0 go build -gcflags "all=-N -l" -o "/bin/nfs-watchdog"
 
-FROM golang:1.26 as build-prod
+FROM golang:1.27 as build-prod
 
 WORKDIR /build
 COPY go.mod go.sum ./
